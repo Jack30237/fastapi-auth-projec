@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+*.sqlite3
+*.db
+
+# VSCode / JetBrains
+.vscode/
+.idea/
+
+# Node / frontend
+node_modules/
+*.log
+.DS_Store
+.jsx

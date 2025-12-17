@@ -1,0 +1,35 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: #fff;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-box {
+  background: #1e293b;
+  padding: 30px;
+  width: 300px;
+  border-radius: 10px;
+}
+
+input {
+  width: 100%;
+  margin: 8px 0;
+  padding: 8px;
+}
+
+button {
+  width: 100%;
+  padding: 8px;
+  background: #38bdf8;
+  border: none;
+  cursor: pointer;
+}
+
+#message {
+  margin-top: 10px;
+  color: #f87171;
+}
