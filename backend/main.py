@@ -14,6 +14,10 @@ from security.hash import verify_password
 from security.jwt import create_access_token
 from fastapi.middleware.cors import CORSMiddleware
 
+from parser import parse_log
+from features import extract_features
+from detector import detect_anomalies, add_explanations
+
 app = FastAPI()
 
 # ⭐ CORS 一定要在「所有 router 之前」
@@ -68,3 +72,12 @@ def login(user: UserCreate, db: Session = Depends(get_db), request: Request = No
 
     token = create_access_token({"sub": db_user.username, "role": db_user.role})
     return {"access_token": token, "token_type": "bearer"}
+
+@app.get("/analyze/logs")
+def analyze_logs():
+    df = parse_log()
+    df = extract_features(df)
+    df = detect_anomalies(df)
+    df = add_explanations(df)
+    result = df.to_dict(orient="records")
+    return {"logs": result}

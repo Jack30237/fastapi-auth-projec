@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Log 異常分析</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    .risk {
+      background-color: #ffdddd;
+    }
+  </style>
+</head>
+<body>
+
+<h2>AI Log 異常分析結果</h2>
+
+<table id="logTable">
+  <thead>
+    <tr>
+      <th>時間</th>
+      <th>狀態</th>
+      <th>使用者</th>
+      <th>IP</th>
+      <th>IP 失敗次數</th>
+      <th>User 失敗次數</th>
+      <th>異常</th>
+      <th>原因</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+<script>
+fetch("http://127.0.0.1:8000/analyze/logs")
+  .then(res => res.json())
+  .then(data => {
+    const tbody = document.querySelector("#logTable tbody");
+    data.logs.forEach(log => {
+      const tr = document.createElement("tr");
+
+      if (log.risk_score === 1) {
+        tr.classList.add("risk");
+      }
+
+      tr.innerHTML = `
+        <td>${log.timestamp}</td>
+        <td>${log.status}</td>
+        <td>${log.user}</td>
+        <td>${log.ip}</td>
+        <td>${log.ip_fail_count}</td>
+        <td>${log.user_fail_count}</td>
+        <td>${log.risk_score === 1 ? "⚠️" : "正常"}</td>
+        <td>${log.reason || ""}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  })
+  .catch(err => {
+    alert("API 連線失敗");
+    console.error(err);
+  });
+</script>
+
+</body>
+</html>
