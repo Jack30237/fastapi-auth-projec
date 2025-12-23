@@ -10,5 +10,4 @@
 <img width="310" height="305" alt="螢幕擷取畫面 2025-12-23 144905" src="https://github.com/user-attachments/assets/bb6dc23f-e2b9-488a-b752-1235d0c3561d" />
 
 啟動 python -m http.server 5500
-檢測範例
-http://127.0.0.1:5500/static.html
+
